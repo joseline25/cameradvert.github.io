@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="col-md-8 offset-md-2">
+    <h1>Blog Index</h1>
+    <hr>
+    {% for post in posts %}
+    <h2><a href="{% url 'details' post.id %}">{{ post.title }}</a></h2>
+    <small>
+        {{ post.created_on.date }} |&nbsp;
+        Categories:&nbsp;
+        {% for category in post.categories.all %}
+        <a href="{% url 'category' category.name %}">
+            {{ category.name }}
+        </a>&nbsp;
+
+        <!--p>
+            {{ post.creator.user.username }}
+        </p-->&nbsp;
+        {% endfor %}
+    </small>
+
+    {% if post.imagepost %}
+    <h3><img src="{{ post.imagepost.url }}" height="100" width="100" /></h3>
+    {% endif %}
+
+    <p>{{ post.body | slice:":400" }}...</p>
+    {% endfor %}
+
+
+<form action="{% url 'addpost' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+             {{form.as_p}}
+        <input type="submit" value="Add a new post" />
+
+    </form>
+</div>
+{% endblock %}

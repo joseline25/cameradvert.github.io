@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block title %} New Ads {% endblock title %}
+
+    {% block header %}
+            <h3>  Comments Section </h3>
+
+            <h6>  {{ thread.subject }}  </h6>
+
+            <hr>
+
+                            {% if thread.imagepost %}
+                            <h3><img src="{{ thread.imagepost.url }}" height="100" width="100" /></h3>
+                            {% endif %}
+                            <p> By: {{thread.creator.username}}</p>
+                            email- {{thread.creator.email}}
+                            <hr>
+
+    {% endblock header %}
+
+{% block content %}
+<h3> List of Comments </h3>
+
+{% for comment in comments %}
+
+<h4> {{ comment.text }}   </h4>
+
+<h6> by {{ user }}  </h6>
+
+
+{% endfor %}
+
+<form  method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" class="btn btn-primary" value="Post your comment">
+</form>
+
+{% endblock content %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up to Camer Advert{% endblock %}
+
+{% block content %}
+  <!--h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign Up</button>
+  </form-->
+
+<form action="{% url 'signup' %}" method="POST" >
+                                            {% csrf_token %}
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputFirstName">First Name</label>
+                                                        <input class="form-control py-4" name="inputFirstName" type="text" placeholder="Enter first name" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputLastName">Last Name</label>
+                                                        <input class="form-control py-4" name="inputLastName" type="text" placeholder="Enter last name" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                                <input class="form-control py-4" name="inputEmailAddress" type="email" aria-describedby="emailHelp" placeholder="Enter email address" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="small mb-1"  >Username</label>
+                                                <input class="form-control py-4" name="inputUsername" type="text"   placeholder="Enter your username" />
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1"  >Password</label>
+                                                        <input class="form-control py-4" name="inputPassword" type="password" placeholder="Enter password" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" >Confirm Password</label>
+                                                        <input class="form-control py-4" name="inputConfirmPassword" type="password" placeholder="Confirm password" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-4 mb-0">
+                                                <button type="submit" class="btn btn-primary btn-block" >Create Account</button>
+                                            </div>
+                                        </form>
+{% endblock %}

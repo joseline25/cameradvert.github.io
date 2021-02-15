@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block title %} New Ads {% endblock title %}
+
+
+
+{% block content %}
+<h4> Add an Ad! </h4>
+<form action="{% url 'newthread' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+
+            <!--button type="submit">Upload</button-->
+    <input type="submit" class="btn btn-primary" value="Add">
+</form>
+{% endblock content %}

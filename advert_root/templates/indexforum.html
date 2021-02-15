@@ -1,0 +1,77 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block title %} Camer Advert Ads {% endblock title %}
+
+
+{% block content %}
+        <h2 class="jumbotron">
+            Total ads: {{count}}
+            <form method="POST" action="{% url 'newthread' %}">
+                {% csrf_token %}
+            <button class="btn btn-primary" style="width:fit-content; padding: 4px; margin:10px;">Add an ad</button>
+            </form>
+        </h2>
+
+
+<div class="container" style="height: 200px;">
+    <form method="POST" class="form-inline my-2 my-lg-0" style="display: inline-flex; float: right; padding:50px" action="{% url 'searchbar' %}">
+        {% csrf_token %}
+        <input class="form-control mr-lg-2"type="text" placeholder="Search "    name="search" style="width: 600px;">
+        <button class="btn btn-ouline-primary my-2 my-sm-0" type="submit" > Search </button>
+    </form>
+</div>
+
+            <div class="card-columns" style="padding: 10px; margin: 20px;"></div>
+
+
+            {%for forum in forums %}
+
+                <div class="card box container">
+                    <br>
+                    <div class="card-title">
+                        <h2 class="post-title">
+                        {{ forum.subject }}
+                        </h2>
+                        {% if user.is_authenticated %}
+
+                        {% if post_interested %}
+                        <form action="{% url 'interested' forum.id %}"  method="POST"> {% csrf_token %} <button type="submit" name="thread_id" value="{{forum.id}}" class="btn btn-info">Uninterested</button></form>
+                        {% else %}
+                        <form action="{% url 'interested' forum.id %}" method="POST">{% csrf_token %} <button type="submit" name="thread_id" value="{{forum.id}}" class="btn btn-info">Interested</button></form>
+                        {% endif %}
+                        </form>
+                        {% else %}
+                         <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to like this article!</a><br>
+                        {% endif %}
+                         <small>
+
+                        <strong class="text-secondary">{{ number_of_interested }} are interested{{ number_of_interested|pluralize }}</strong>
+                        </small>
+
+
+
+
+
+                    </div>
+
+                            <hr>
+
+                            {% if forum.imagepost %}
+                            <h3><img src="{{ forum.imagepost.url }}" height="100" width="100" /></h3>
+                            {% endif %}
+                            <p class="post-meta"> By: {{forum.creator.username}}</p>
+                            email- {{forum.creator.email}}
+                            <hr>
+
+                        </div>
+                </div>
+            </div>
+            <br>
+
+            {%endfor%}
+
+
+
+{% endblock content %}
